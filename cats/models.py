@@ -1,10 +1,21 @@
 from django.db import models
 
+
+CHOICES = (
+        ('Серый', 'Серый'),
+        ('Black', 'Чёрный'),
+        ('Белый', 'Белый'),
+        ('Ginger', 'Рыжий'),
+        ('Mixed', 'Смешанный'),
+    )
+
+
 class Achievement(models.Model):
     name = models.CharField(max_length=64)
 
     def __str__(self):
         return self.name
+
 
 class Owner(models.Model):
     first_name = models.CharField(max_length=128)
@@ -12,7 +23,7 @@ class Owner(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
-    
+
 
 class Cat(models.Model):
     class Meta:
@@ -26,7 +37,8 @@ class Cat(models.Model):
     achievements = models.ManyToManyField(Achievement, through='AchievementCat')
 
     def __str__(self):
-        return self.name 
+        return self.name
+
 
 # В этой модели будут связаны id котика и id его достижения
 class AchievementCat(models.Model):
@@ -35,7 +47,3 @@ class AchievementCat(models.Model):
 
     def __str__(self):
         return f'{self.achievement} {self.cat}'
-
-    # def __str__(self):
-    #     return f'{self.name},{self.color}'
-    
